@@ -1,0 +1,9 @@
+prompt 3 = (
+    "Jesus using a computer"
+    "Jesus at the office"
+)
+
+negative_prompt = (
+    "photorealistic, 3D render, digital illustration, cartoon, anime, "
+    "clean smooth surfaces, glossy, modern photography, "
+    "text"
