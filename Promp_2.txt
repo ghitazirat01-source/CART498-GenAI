@@ -1,0 +1,14 @@
+prompt 2 = (
+   
+    "Jesus using a computer"
+    "end of the world"
+    "God is a computer"
+    "crying"
+    "Jesus crying"
+    "computer in front"
+)
+
+negative_prompt = (
+    "photorealistic, 3D render, digital illustration, cartoon, anime, "
+    "clean smooth surfaces, glossy, modern photography, "
+    "text"
