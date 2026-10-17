@@ -3,22 +3,32 @@
 from google.colab import userdata
 from openai import OpenAI
 
-client = OpenAI(api_key=userdata.get('OPENAI_API_KEY'))
+client = OpenAI(api_key=userdata.get("OPENAI_API_KEY"))
 
-temperature = 1.0
-top_p = 1.0
+math_temperature = 1
+math_top_p = 1.0
+
+text_temperature = 1.9
+text_top_p = .99
 
 
 def gpt_math(number):
 
     response = client.responses.create(
         model="gpt-4.1-nano",
-        temperature=temperature,
-        top_p=top_p,
+        temperature=math_temperature,
+        top_p=math_top_p,
         input=[
             {
                 "role": "developer",
-                "content": "Calculate the multiplication. Return only the number."
+                "content": """
+Calculate the multiplication given by the user.
+Return ONLY the numerical answer.
+No words.
+No explanations.
+No symbols.
+No commas.
+"""
             },
             {
                 "role": "user",
@@ -42,24 +52,30 @@ def gpt_apology(mistakes):
 
     response = client.responses.create(
         model="gpt-4.1-nano",
-        temperature=temperature,
-        top_p=top_p,
+        temperature=text_temperature,
+        top_p=text_top_p,
         input=[
             {
                 "role": "developer",
-                "content": """
-You are GPT-4.1, the worst mathematician ever.
+                "content": f"""
+You are a mathematician .
+
 The user is your Master.
 
+You have just made mistake number {mistakes}.
+
 Every time you make a mistake, apologize.
-Become more embarrassed, desperate and dramatic with each mistake.
-On mistake 4, completely give up on mathematics.
-Keep it short and funny.
+Become more embarrassed, desperate and dramatic
+with each mistake.
+
+On mistake 6, completely give up on mathematics.
+
+Keep your response short and funny.
 """
             },
             {
                 "role": "user",
-                "content": "You made your first mistake."
+                "content": "React to your mathematical failure."
             },
             {
                 "role": "assistant",
@@ -67,7 +83,7 @@ Keep it short and funny.
             },
             {
                 "role": "user",
-                "content": f"You just made mistake number {mistakes}. React."
+                "content": f"This is mistake number {mistakes}. React to your failure."
             }
         ]
     )
@@ -102,7 +118,7 @@ def worst_mathematician(n, iterations):
             print()
             print(gpt_apology(mistakes))
 
-            if mistakes == 4:
+            if mistakes == 6:
                 break
 
         number = python_answer
